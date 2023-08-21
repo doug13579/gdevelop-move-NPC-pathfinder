@@ -598,6 +598,11 @@
           "effects": [],
           "behaviors": [
             {
+              "checkCollisionMask": true,
+              "name": "Draggable",
+              "type": "DraggableBehavior::Draggable"
+            },
+            {
               "cost": 2,
               "impassable": true,
               "name": "PathfindingObstacle",
@@ -806,13 +811,33 @@
           "conditions": [
             {
               "type": {
-                "value": "PathfindingBehavior::Speed"
+                "value": "BuiltinCommonInstructions::Or"
               },
-              "parameters": [
-                "AliceGroup",
-                "Pathfinding",
-                "=",
-                "0"
+              "parameters": [],
+              "subInstructions": [
+                {
+                  "type": {
+                    "value": "PathfindingBehavior::Speed"
+                  },
+                  "parameters": [
+                    "AliceGroup",
+                    "Pathfinding",
+                    "=",
+                    "0"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "CollisionNP"
+                  },
+                  "parameters": [
+                    "AliceGroup",
+                    "ObstacleGroup",
+                    "",
+                    "",
+                    ""
+                  ]
+                }
               ]
             }
           ],
@@ -841,6 +866,16 @@
                   },
                   "parameters": [
                     "AliceTester",
+                    "ObstacleGroup",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "SeparateFromObjects"
+                  },
+                  "parameters": [
+                    "alice",
                     "ObstacleGroup",
                     ""
                   ]
